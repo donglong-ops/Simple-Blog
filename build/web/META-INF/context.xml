@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/Lab02_Simple_Blog">
-  <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" name="SE1502" password="123456" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:1433;databaseName=Mini_Social_Network" username="sa">   
+  <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" name="SE1502" 
+            username="sa" password="123456" type="javax.sql.DataSource" 
+            url="jdbc:sqlserver://localhost:1433;databaseName=lab2_simple_blog" >   
     </Resource>
 </Context>

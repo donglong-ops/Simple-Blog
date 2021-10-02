@@ -6,50 +6,90 @@
 package longdh.controllers;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import longdh.daos.CommentsDAO;
-import longdh.dtos.CommentsDTO;
-import longdh.dtos.UsersDTO;
+import javax.servlet.http.HttpSession;
+import longdh.articles.ArticlesDAO;
+import longdh.comments.CommentsDAO;
+import longdh.articles.ArticlesDTO;
+import longdh.comments.CommentsDTO;
+import longdh.users.UsersDTO;
 
 /**
  *
- * @author Cyrus
+ * @author Dong Long
  */
 @WebServlet(name = "PostCommentController", urlPatterns = {"/PostCommentController"})
 public class PostCommentController extends HttpServlet {
 
-    private final CommentsDTO dto = new CommentsDTO();
+    private static final String SUCCESS_PAGE = "blogDetailPage.jsp";
+    private static final String LOGIN_PAGE = "try";
 
-    private void createNewComment(final HttpServletRequest req) throws SQLException, NamingException {
-        int postID = Integer.parseInt(req.getParameter("txtPostID"));       
-        UsersDTO user = ((UsersDTO) req.getSession().getAttribute("USER"));
-        String content = req.getParameter("txtComment");
-        String email = user.getEmail();     
-        dto.setPostID(postID);
-        dto.setContent(content);
-        dto.setEmail(email);
-    }
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            createNewComment(request);
-            CommentsDAO dao = new CommentsDAO();
-            dao.insert(dto);
 
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        HttpSession session = request.getSession();
+        CommentsDAO commentDAO = new CommentsDAO();
+        ArticlesDAO dao = new ArticlesDAO();
+        String url;
+        String content = request.getParameter("txtComment");
+        int postID = Integer.parseInt(request.getParameter("txtPostID"));
+        try {
+            if (content == null || content.trim().length() <= 0) {
+                url = SUCCESS_PAGE;
+                ArticlesDTO dto = dao.getBlogByID(postID);
+                request.setAttribute("DTO", dto);
+                List<CommentsDTO> listComment = commentDAO.getAllCommentsByPostID(postID);
+                request.setAttribute("COMMENT", listComment);
+                request.getRequestDispatcher(url).forward(request, response);
+            } else {
+                CommentsDTO commentDTO = new CommentsDTO(postID, content, new Date(now.getTime()));
+                if (session.getAttribute("USER") == null) {
+                    url = LOGIN_PAGE;
+                    response.sendRedirect(url);
+                } else {
+                    UsersDTO user = (UsersDTO) session.getAttribute("USER");
+                    if (user.getRole().equals("Member")) {
+                        ArticlesDTO dto = dao.getBlogByID(postID);
+                        if (dto != null) {
+                            request.setAttribute("DTO", dto);
+                            commentDAO.createComment(commentDTO, user.getEmail());
+                            List<CommentsDTO> listComment = commentDAO.getAllCommentsByPostID(postID);
+                            request.setAttribute("COMMENT", listComment);
+                        }
+                        url = SUCCESS_PAGE;
+                        request.getRequestDispatcher(url).forward(request, response);
+                    } else {
+                        url = LOGIN_PAGE;
+                        response.sendRedirect(url);
+                    }
+                }
+            }
         } catch (SQLException | NamingException e) {
             log("Error CommentController at: " + e.getMessage());
-        } finally {
-            request.getRequestDispatcher("ViewDetailController").forward(request, response);
+        } catch (ParseException ex) {
+            log("ParseException CommentController at: " + ex.getMessage());
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

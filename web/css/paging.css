@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 20, 2021, 10:18:46 PM
+    Author     : Dong Long
+*/
+
+.pagination{
+    color: white;
+    float: right;
+    margin-right: 80px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    /*    border: 1px solid #ddd;*/
+    background-color: black;
+}
+.previous {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f1f1f1;
+    color: black;
+
+}

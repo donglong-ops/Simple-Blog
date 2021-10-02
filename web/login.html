@@ -12,10 +12,10 @@ and open the template in the editor.
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Login Page</title>
     </head>
-    <body>
+    <body style="background-color: #573100">
         <div class="container mt-5 border bg-light p-4" style="width: 400px" >
             <h1 class="text-center">Login Page</h1>
-            <form action="MainController" method="POST">
+            <form action="loginAction" method="POST">
                 Email: <input class="form-control" type="text" name="txtEmail" value="" /></br>
                 Password: <input class="form-control" type="password" name="txtPassword" value="" /></br>
                 <div class="form-row" style="margin-left: 30%">
@@ -23,12 +23,9 @@ and open the template in the editor.
                     <input class="btn btn-light border mt-2 px-4 ml-2" type="reset" value="Reset" />
                 </div>
             </form>
-                
-            <a style="margin-left: 50%">Or</a> <br/>
-            <a class="btn btn-primary mt-2" href="DispatcherController?btAction=LoginGoogle" style="margin-left: 30%">
-                <i class="fa fa-google" aria-hidden="true"></i>
-                Login With Google
-            </a> <br/>
+            <h5 class="text-center mt-2">
+                <a href="createNewAccount">Don't have an account? Sign up here</a>
+            </h5>
         </div>
     </body>
 </html>

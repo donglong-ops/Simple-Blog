@@ -9,11 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>City Blog Theme - About Our Company</title>
-        <meta name="keywords" content="city blog, theme, free templates, website templates, CSS, HTML" />
-        <meta name="description" content="City Blog Theme is a free website template provided by tooplate.com" />
+        <title>My Blog Theme - About Our Company</title>
         <link href="css/tooplate_style.css" rel="stylesheet" type="text/css" />
-        <!--   Free Website Template by t o o p l a t e . c o m   -->
     </head>
 </head>
 <body>
@@ -22,14 +19,14 @@
 
             <div id="tooplate_menu">
                 <ul>
-                    <li><a href="homePage.jsp">Home</a></li>
-                    <li><a href="about.jsp">About Us</a></li>
-                    <li><a href="gallery.jsp">Gallery</a></li>
+                    <li><a style="width: 25%"> </a></li>
+                    <li><a href="manageArticleAction">Home</a></li>
+                    <li><a href="aboutUs">About Us</a></li>
+                    <li><a href="gallery">Gallery</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>    	
-            </div> <!-- end of tooplate_menu -->
-
-            <div id="site_title"><h1><a rel="nofollow" href="http://www.tooplate.com">Free Website Templates</a></h1></div>
+            </div> 
+            <div id="site_title"><h1><a rel="nofollow" href="http://www.tooplate.com">My Blog Website </a></h1></div>
 
         </div> <!-- end of header -->
     </div> <!-- end of header wrapper -->
@@ -169,7 +166,7 @@
 
     <div id="tooplate_footer">
 
-        Copyright © 2048 <a href="#">Dong Long - Ops</a>
+        Copyright © 2021 <a href="https://github.com/donglong-ops">Dong Long - Ops</a>
 
     </div> <!-- end of tooplate_footer -->
 </body>

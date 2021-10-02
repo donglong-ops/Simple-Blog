@@ -31,7 +31,7 @@ public class LogoutController extends HttpServlet {
         } catch(Exception e){
             log("Error LogoutController : "+e.getMessage());
         }finally{
-            response.sendRedirect("login.html");
+            response.sendRedirect("try");
         }
     }
 

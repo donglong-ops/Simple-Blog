@@ -12,21 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import longdh.daos.UsersDAO;
-import longdh.dtos.UserErrorObj;
-import longdh.dtos.UsersDTO;
+import longdh.users.UsersDAO;
+import longdh.users.UsersDTO;
 
 /**
  *
- * @author Cyrus
+ * @author Dong Long
  */
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
-    private static final String MEMBER = "SocialNetworkController";
-    private static final String ADMIN = "admin.jsp";
-    private static final UserErrorObj errorObj = new UserErrorObj();
+    private static final String MEMBER = "homeAction";
+    private static final String ADMIN = "manageArticleAction";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,40 +42,27 @@ public class LoginController extends HttpServlet {
         UsersDAO dao = new UsersDAO();
         String email = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
+
         try {
-            UsersDTO dto = dao.checkLogin(email, password);
+            String encryPassword = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
+            UsersDTO dto = dao.checkLogin(email, encryPassword);
             if (dto == null) {
-                errorObj.setNotExistedError("Couldn't find your account");
-                request.setAttribute("ERROR", errorObj);
+                url = ERROR;
+                request.setAttribute("ERROR", "Email or password swrong");
+                request.getRequestDispatcher(url).forward(request, response);
             } else {
-
-                String name = dao.getName(email, password);
                 HttpSession session = request.getSession();
-                session.setAttribute("NAME", name);
                 session.setAttribute("USER", dto);
-
-                switch (dto.getRole()) {
-                    case "admin":
-                        url = ADMIN;
-                        break;
-                    case "member":
-                        url = MEMBER;
-                        break;
-                    case "failed":
-                        errorObj.setEmailError("Your account is not available");
-                        request.setAttribute("ERROR", errorObj);
-                        break;
-                    default:
-                        request.setAttribute("ERROR", "You are not authenticated");
-                        break;
+                if (dto.getRole().equals("Admin")) {
+                    url = ADMIN;
+                } else if (dto.getRole().equals("Member")) {
+                    url = MEMBER;
                 }
+                response.sendRedirect(url);
             }
         } catch (Exception e) {
             log("Error LoginController at: " + e.getMessage());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
-
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

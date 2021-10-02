@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <servlet>
-        <servlet-name>MainController</servlet-name>
-        <servlet-class>longdh.controllers.MainController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MainController</servlet-name>
-        <url-pattern>/MainController</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-    <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
-    </welcome-file-list>
+    <context-param>
+        <param-name>SITEMAP_PROPERTIES_FILE_LOCATION</param-name>
+        <param-value>/WEB-INF/siteMap.properties</param-value>
+    </context-param>
+    <filter>
+        <filter-name>DispatcherFilter</filter-name>
+        <filter-class>longdh.filter.DispatcherFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DispatcherFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <description>ContextListener</description>
+        <listener-class>longdh.listener.ContextListener</listener-class>
+    </listener>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errorPage.jsp</location>
+    </error-page>
     <resource-ref>
         <res-ref-name>SE1502</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>

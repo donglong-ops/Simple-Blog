@@ -7,17 +7,20 @@ package longdh.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import longdh.daos.ArticlesDAO;
-import longdh.daos.CommentsDAO;
-import longdh.dtos.ArticlesDTO;
-import longdh.dtos.CommentsDTO;
+import longdh.articles.ArticlesDAO;
+import longdh.comments.CommentsDAO;
+import longdh.articles.ArticlesDTO;
+import longdh.comments.CommentsDTO;
 
 /**
  *
@@ -26,7 +29,6 @@ import longdh.dtos.CommentsDTO;
 @WebServlet(name = "ViewBlogDetailController", urlPatterns = {"/ViewBlogDetailController"})
 public class ViewBlogDetailController extends HttpServlet {
 
-    private final String ERROR_PAGE = "errorPage.jsp";
     private final String SUCCESS_PAGE = "blogDetailPage.jsp";
 
     /**
@@ -43,8 +45,9 @@ public class ViewBlogDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        String url = ERROR_PAGE;
+        String url = SUCCESS_PAGE;
         String blogID = request.getParameter("txtPostID");
+
         HttpSession session = request.getSession();
         CommentsDAO commentDAO = new CommentsDAO();
         ArticlesDAO dao = new ArticlesDAO();
@@ -52,21 +55,20 @@ public class ViewBlogDetailController extends HttpServlet {
             if (blogID != null) {
                 ArticlesDTO dto = dao.getBlogByID(Integer.parseInt(blogID));
                 request.setAttribute("DTO", dto);
-                System.out.println("data nè: " + dto.getTitle());
-
                 List<CommentsDTO> listComment = commentDAO.getAllCommentsByPostID(Integer.parseInt(blogID));
-//               CommentsDTO commentDTO = commentDAO.get(blogID);
                 request.setAttribute("COMMENT", listComment);
-//                request.setAttribute("COMMENT_DTO", commentDTO);
-                List<ArticlesDTO> list = dao.getAllArticles(); // chua phan trang
+
+                List<ArticlesDTO> list = dao.getAllArticles(1, 15);
                 if (list != null) {
                     session.setAttribute("LIST", list);
                 }
-                url = SUCCESS_PAGE;
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             log("Error ViewDetailBlog SQL: " + ex.getMessage());
-            ex.printStackTrace();
+        } catch (NamingException ex) {
+            log("Error ViewDetailBlog Naming: " + ex.getMessage());
+        } catch (ParseException ex) {
+            log("Error ViewDetailBlog ParseEception: " + ex.getMessage());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
             out.close();

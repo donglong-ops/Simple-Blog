@@ -14,31 +14,26 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Login Page</title>
     </head>
-    <body>
+    <body style="background-color: #573100">
         <div class="container mt-5 border bg-light p-4" style="width: 400px" >
             <h1 class="text-center">Login Page</h1>
-            <form action="MainController" method="POST">
-                Email: <input class="form-control" type="text" name="txtEmail" value="${param.txtUsername}" /></br>
+            <form action="loginAction" method="POST">
+                Email: <input class="form-control" type="text" name="txtEmail" value="${param.txtEmail}" /></br>
                 Password: <input class="form-control" type="password" name="txtPassword" value="" /></br>
-                <div class="form-row" style="margin-left: 30%">
+                <div class="form-row" style="margin-left: 28%">
                     <input class="btn btn-success mt-2 px-4"  type="submit" name="action" value="Login" />
                     <input class="btn btn-light border mt-2 px-4 ml-2" type="reset" value="Reset" />
                 </div>
             </form>
 
-            <c:set var="error" value="${requestScope.LOGINFAIL}"/>
+            <c:set var="error" value="${requestScope.ERROR}"/>
             <c:if test="${not empty error}" >
-                <div class="container mt-5 border bg-light p-4" style="width: 350px" >
-                    <h2 class="text-danger">${error}</h2>
+                <div class="container mt-2 mb-2 border bg-light p-4" style="width: 350px" >
+                    <h4 class="text-danger">${error}</h4>
                 </div>
             </c:if>
-            <a style="margin-left: 50%">Or</a> <br/>
-            <a class="btn btn-primary mt-2" href="DispatcherController?btAction=LoginGoogle" style="margin-left: 30%">
-                <i class="fa fa-google" aria-hidden="true"></i>
-                Login With Google
-            </a> <br/>
             <h5 class="text-center">
-                <a href="signup.jsp">Don't have an account? Sign up here</a>
+                <a href="createNewAccount">Don't have an account? Sign up here</a>
             </h5>
         </div>
     </body>

@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author Cyrus
+ * @author Dong Long
  */
 public class MyConnection implements Serializable {
     public static Connection getConnection() throws NamingException,SQLException{

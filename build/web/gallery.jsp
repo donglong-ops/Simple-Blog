@@ -9,18 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>City Blog Theme - Gallery Page</title>
-        <meta name="keywords" content="city blog, gallery theme, free templates, website templates, CSS, HTML" />
-        <meta name="description" content="City Blog Gallery Theme is a free website template provided by tooplate.com" />
+        <title>My Blog Theme - Gallery Page</title>
         <link href="css/tooplate_style.css" rel="stylesheet" type="text/css" />
-
-        <!--////// CHOOSE ONE OF THE 3 PIROBOX STYLES  \\\\\\\-->
         <link href="css_pirobox/white/style.css" media="screen" title="shadow" rel="stylesheet" type="text/css" />
-        <!--<link href="css_pirobox/white/style.css" media="screen" title="white" rel="stylesheet" type="text/css" />
-        <link href="css_pirobox/black/style.css" media="screen" title="black" rel="stylesheet" type="text/css" />-->
-        <!--////// END  \\\\\\\-->
-
-        <!--////// INCLUDE THE JS AND PIROBOX OPTION IN YOUR HEADER  \\\\\\\-->
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/piroBox.1_2.js"></script>
         <script type="text/javascript">
@@ -45,14 +36,15 @@
 
                 <div id="tooplate_menu">
                     <ul>
-                        <li><a href="homePage.jsp">Home</a></li>
-                        <li><a href="about.jsp">About Us</a></li>
-                        <li><a href="gallery.jsp">Gallery</a></li>
+                        <li><a style="width: 25%"> </a></li>
+                        <li><a href="manageArticleAction">Home</a></li>
+                        <li><a href="aboutUs">About Us</a></li>
+                        <li><a href="gallery">Gallery</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>    	
                 </div> <!-- end of tooplate_menu -->
 
-                <div id="site_title"><h1><a rel="nofollow" href="http://www.tooplate.com">Free Website Templates</a></h1></div>
+                <div id="site_title"><h1><a rel="nofollow" href="http://www.tooplate.com">My Blog Website </a></h1></div>
 
             </div> <!-- end of header -->
         </div> <!-- end of header wrapper -->
