@@ -1,7 +1,8 @@
 Title: Simple Blog
 Features:
 This system following functions:
-Function 1: Registration
+
+- Function 1: Registration
 o Registration a new account: email, name, password, role, status (email as ID).
 o The default role of new account is member.
 o The default status of new account is New.
