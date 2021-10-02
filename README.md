@@ -50,3 +50,10 @@ o Authentication available email when registering a user.
 o When registering a new account, the system will send a confirmation code to the email address.
 o After entering the verification code, the status of the account will change to Active.
 o Only member can use this function.
+
+Home Page Image:
+![1](https://user-images.githubusercontent.com/59483840/135701748-1e7e80ca-ea0e-4655-9e2e-0dff0b6bd5ee.PNG)
+![2](https://user-images.githubusercontent.com/59483840/135701755-40fb294e-439a-4f0f-8673-94ea45db441f.PNG)
+Aricle detail Image:
+![3](https://user-images.githubusercontent.com/59483840/135701760-59b3408a-bddb-456f-aaf6-6b86179e0b32.PNG)
+![4](https://user-images.githubusercontent.com/59483840/135701758-217a94ba-c19d-4cdc-8187-4056ac5bec89.PNG)
